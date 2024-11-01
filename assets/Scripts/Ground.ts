@@ -67,11 +67,11 @@ export class Ground extends Component {
         const canvasWidth = canvas.getComponent(UITransform).width;
 
         if (this.tempStartLocation1.x <= -this.groundWidth1) {
-            this.tempStartLocation1.x = canvasWidth;
+            this.tempStartLocation1.x += canvasWidth + this.groundWidth1;
         } else if (this.tempStartLocation2.x <= -this.groundWidth2) {
-            this.tempStartLocation2.x = canvasWidth;
+            this.tempStartLocation2.x += canvasWidth + this.groundWidth2;
         } else if (this.tempStartLocation3.x <= -this.groundWidth3) {
-            this.tempStartLocation3.x = canvasWidth;
+            this.tempStartLocation3.x += canvasWidth + this.groundWidth3;
         }
 
         this.ground1.setPosition(this.tempStartLocation1);

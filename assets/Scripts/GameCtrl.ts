@@ -1,4 +1,4 @@
-import { _decorator, CCInteger, Component, Node } from 'cc';
+import { _decorator, CCInteger, Component, director, EventKeyboard, Input, input, KeyCode, Node } from 'cc';
 import { Ground } from './Ground';
 import { Results } from './Results';
 const { ccclass, property } = _decorator;
@@ -24,15 +24,44 @@ export class GameCtrl extends Component {
     public pipeSpeed = 200;
 
     protected onLoad(): void {
-
+        this.initListener();
+        this.result.resetScore();
+        director.pause();
     }
 
     private initListener(): void {
-
+        input.on(Input.EventType.KEY_DOWN, this.onKeyDown, this);
     }
 
     private startGame(): void {
+        this.result.hideResults();
+        director.resume();
+    }
 
+    private gameOver(): void {
+        this.result.showResults();
+        director.pause();
+    }
+
+    private resetGame(): void {
+        this.result.resetScore();
+        this.startGame()
+    }
+
+    private onKeyDown(event: EventKeyboard): void {
+        switch (event.keyCode) {
+            case KeyCode.KEY_A:
+                this.gameOver();
+                break;
+            case KeyCode.KEY_P:
+                this.result.addScore();
+                break;
+            case KeyCode.KEY_Q:
+                this.resetGame();
+                break;
+            default:
+                break;
+        }
     }
 }
 
